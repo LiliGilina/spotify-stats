@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import Callback from "./Callback.jsx";
-
-const path = window.location.pathname;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {path === "/callback" ? <Callback /> : <App />}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

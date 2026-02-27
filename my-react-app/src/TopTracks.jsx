@@ -8,7 +8,7 @@ export default function TopTracks() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await getMyTopTracks({ limit: 5, timeRange: "medium_term" });
+        const data = await getMyTopTracks({ limit: 5, time_range: "medium_term" });
         setTracks(data.items || []);
       } catch (e) {
         setErr(e.message ?? String(e));
@@ -20,21 +20,11 @@ export default function TopTracks() {
 
   return (
     <div>
-      <h2>My Top 5 Tracks</h2>
+      <h2>Top 5 Tracks</h2>
       <ol>
         {tracks.map((t) => (
-          <li key={t.id} style={{ marginBottom: 12 }}>
-            <div>
-              <b>{t.name}</b> — {t.artists.map((a) => a.name).join(", ")}
-            </div>
-            {t.album?.images?.[2]?.url && (
-              <img src={t.album.images[2].url} alt="" />
-            )}
-            <div>
-              <a href={t.external_urls.spotify} target="_blank" rel="noreferrer">
-                Open in Spotify
-              </a>
-            </div>
+          <li key={t.id} style={{ marginBottom: 10 }}>
+            <b>{t.name}</b> — {t.artists.map((a) => a.name).join(", ")}
           </li>
         ))}
       </ol>
