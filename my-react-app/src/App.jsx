@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { startSpotifyLogin } from "./spotifyAuth";
+import TopTracks from "./TopTracks";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const token = localStorage.getItem("spotify_access_token");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div style={{ padding: 16 }}>
+      <h1>Spotify Top Tracks</h1>
 
-export default App
+      {!token ? (
+        <button onClick={() => startSpotifyLogin()}>
+          Login with Spotify
+        </button>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              localStorage.removeItem("spotify_access_token");
+              localStorage.removeItem("spotify_refresh_token");
+              localStorage.removeItem("spotify_code_verifier");
+              window.location.reload();
+            }}
+          >
+            Logout
+          </button>
+          <TopTracks />
+        </>
+      )}
+    </div>
+  );
+}
