@@ -29,6 +29,8 @@ function randomString(length = 64) {
 }
 
 export async function startSpotifyLogin() {
+
+  console.log(" button clicked")
   const codeVerifier = randomString(64);
   localStorage.setItem("spotify_code_verifier", codeVerifier);
 
